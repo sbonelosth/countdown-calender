@@ -118,7 +118,7 @@ body {
 .progress-bar {
 	position : absolute;
 	top : 0;
-	left : 159px;
+	right : 20px;
 	background : rgba(22, 191, 98);
 	transition : 4s;
 }
@@ -131,7 +131,7 @@ body {
 
 .from-to-year {
 	position : absolute;
-	left : 159px;
+	right : 0;
 	font-family : orbitron;
 	font-size : 20px;
 }
