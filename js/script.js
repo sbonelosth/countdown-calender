@@ -1,5 +1,7 @@
+// I didn't use this function anywhere
 function modulo(num, denom) { if (num%denom >= 0) { return Math.abs(num%denom); } else { return num%denom + denom; } }
 
+// I think the code can be simplified in some way.. but for now I'll leave it as it is.
 function clock() {
 	var
 	date = new Date(),
