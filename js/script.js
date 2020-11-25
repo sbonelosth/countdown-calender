@@ -88,7 +88,7 @@ function clock() {
 	
 	else if (fmonth > 0 && fweeks === 0 && fdays !== 0) {
 		rem_months_label.innerHTML = fmonth > 1 ? pmonths : smonths;
-		rem_days_label.innerHTML = fweeks > 1 ? pdays : sdays;
+		rem_days_label.innerHTML = fdays > 1 ? pdays : sdays;
 		rem_weeks_dom.style.display = "none";
 		rem_weeks_label.style.display = "none";
 	}
