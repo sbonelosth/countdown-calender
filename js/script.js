@@ -1,16 +1,11 @@
-// I didn't use this function anywhere
 function modulo(num, denom) { if (num%denom >= 0) { return Math.abs(num%denom); } else { return num%denom + denom; } }
 
-// I think the code can be simplified in some way.. but for now I'll leave it as it is.
 function clock() {
 	var
 	date = new Date(),
 	current_year = date.getFullYear(),
 	current_month	 = date.getMonth(),
-	current_day = date.getDay(),
-	current_hour = date.getHours(),
-	current_min = date.getMinutes(),
-	current_sec 	= date.getSeconds();
+	current_day = date.getDay();
 	
 	let year_days = 367 - new Date(current_year, 0, 367).getDate();
 	let mon_days = 32 - new Date(current_year, current_month, 32).getDate();
@@ -280,22 +275,8 @@ function clock() {
 	fprog_width = ( Math.ceil(fprog_width) - fprog_width) < 0.5 ? Math.ceil(fprog_width) : Math.floor(fprog_width);
 	progress_bar_width.style.width = fprog_width + "px";
 	
-	// Current date and time.
-	let period = 'AM'.bold();
-	if (current_hour >= 12) {
-		current_hour = current_hour - 12;
-		period = 'PM'.bold();
-	}
-	
-	current_hour = current_hour == 0 ? 12 : current_hour;
-	current_hour = current_hour < 10 ? '0' + current_hour : current_hour;
-	current_min = current_min < 10 ? '0' + current_min : current_min;
-	current_sec = current_sec < 10 ? '0' + current_sec : current_sec;
-	
 	let today = ("<span class='day'>" + (date.toString().split(' ')[0]).bold() + "</span>" + ' ' + (date.toString().split(' ').splice(1,2).join(' ') + ', ' + current_year)).toUpperCase();
-	let time = `${current_hour}:${current_min}:${current_sec}${'&nbsp'}`;
-	document.querySelector(".time-disp").innerHTML = time;
-	document.querySelector(".period-disp").innerHTML = period;
+	document.querySelector(".time-disp").innerHTML = "Day <b>" + Math.floor(prog / day_secs) + "</b> of " + year_days;
 	document.querySelector(".date-disp").innerHTML = today;
 	setInterval(clock, 1000);
 }
