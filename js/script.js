@@ -257,8 +257,7 @@ function clock() {
 	disp_year.innerHTML = "<span class='dying-year'>" + current_year + "</span>&nbsp;&nbsp;>&nbsp;&nbsp;" + "<span class='pending-year'>" + parseInt(current_year + 1) + "</span>";
 	
 	let progress_count = document.querySelector(".progress-count");
-	let fprogress = ((year_days - rem_days)/year_days)*100;
-	fprogress = ( Math.ceil(fprogress) - fprogress ) < 0.5 ? Math.ceil(fprogress) : Math.floor(fprogress);
+	let fprogress = Math.round((Math.floor(prog/day_secs) / year_days)*100 , 0);
 	progress_count.innerHTML = fprogress + "%";
 	
 	let fade_away = document.querySelector(".dying-year");
