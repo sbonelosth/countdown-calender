@@ -19,17 +19,14 @@ body {
 }
 
 .time-wrapper {
-	transform : translateY(-10%);
+	padding : 8px 15px 0;
 	display : flex;
-	flex-direction : column;
-	justify-content : space-around;
-	background-image : linear-gradient(180deg, #171717, #202125);
+	flex-direction : row;
+	justify-content : space-between;
+	height : 30px;
+	background-image : #171717;
 	transition : .1s ease-out;
-}
-
-.time-disp {
-	position : fixed;
-	top : 10px; left : 15px;
+	z-index : 10;
 }
 
 .period-disp {
@@ -38,16 +35,12 @@ body {
 	font-size : 16px;
 }
 
-.day { 
-	position : absolute; 
-	font-size : 16px; 
-	top : -1px; 
-	right : 95px; 
-}
-
-.date-disp {
-	position : fixed;
-	top : 10px; right : 15px;
+.rem-text {
+	font-weight:bold;
+	font-size:15px;
+	margin-top:5px; 
+	text-shadow : 1px 1px 2px #000;
+	transform : translateX(35px);
 }
 
 .countdown, .countdown-labels {
@@ -61,8 +54,7 @@ body {
 
 .countdown-labels {
 	position : absolute;
-	left : 35px;
-	top : 0;
+	left : 35px; top : 0;
 	height : 25px;
 	font-size : 15px;
 	line-height : 28px;
@@ -95,7 +87,7 @@ body {
 
 .progress-section {
 	position : absolute;
-	margin-top : 12vh;
+	margin-top : 5vh;
 	width : 90%;
 	left : 5%; right : 5%;
 	display : flex;
@@ -118,9 +110,7 @@ body {
 .progress-bar {
 	position : absolute;
 	top : 0;
-	right : 20px;
 	background : rgba(22, 191, 98);
-	transition : 4s;
 }
 
 .progress-count {
@@ -137,7 +127,7 @@ body {
 }
 
 .container {
-	margin-top : 30vh;
+	margin-top : 23vh;
 	border-radius : 10px;
 	padding : 10px 0; 
 }
