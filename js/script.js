@@ -1,11 +1,5 @@
 function modulo(num, denom) { if (num%denom >= 0) { return Math.abs(num%denom); } else { return num%denom + denom; } }
-function q(selector) {
-  return document.querySelector(selector);
-}
-
-function infl(sel) {
-  return sel.innerHTML;
-}
+function q(selector) { return document.querySelector(selector); }
 
 function clock() {
 	var
