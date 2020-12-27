@@ -1,4 +1,11 @@
 function modulo(num, denom) { if (num%denom >= 0) { return Math.abs(num%denom); } else { return num%denom + denom; } }
+function q(selector) {
+  return document.querySelector(selector);
+}
+
+function infl(sel) {
+  return sel.innerHTML;
+}
 
 function clock() {
 	var
@@ -26,19 +33,20 @@ function clock() {
 	rem = Math.ceil(year_secs - prog);
 	
 	var
-	rem_days	 = Math.floor( rem / day_secs ),
+	rem_days = Math.floor( rem / day_secs ),
 	rem_weeks = Math.floor( rem / week_secs ),
 	rem_hours = Math.floor( rem / hour_secs ),
 	rem_minutes = Math.floor( rem / min_secs );
 	
 	let fmonth = 12 - Math.ceil(prog / month_secs);
-	let fweeks = rem_weeks - 4*(fmonth);
-	let fdays = rem_days - (7*rem_weeks);
-	let fhours	= rem_hours - (24*rem_days);
-	let fminutes	= rem_minutes - (60*rem_hours);
-	let fseconds	= rem - (60*rem_minutes);
+	let fweeks = rem_weeks - 4*fmonth;
+	let fdays = 1 + rem_days - 7*rem_weeks;
+	let fhours = rem_hours - 24*rem_days;
+	let fminutes = rem_minutes - 60*rem_hours;
+	let fseconds = rem - 60*rem_minutes;
 	
 	// Strings for labels.
+	
 	let pmonths = "months";
 	let smonths = "month";
 	let pdays = "days ";
@@ -53,35 +61,35 @@ function clock() {
 	let sseconds = "second";
 	
 	// Assigning the DOM to variables.
-	let rem_months_dom = document.querySelector(".rem-months");
-	let rem_weeks_dom = document.querySelector(".rem-weeks");
-	let rem_days_dom = document.querySelector(".rem-days");
-	let rem_hours_dom = document.querySelector(".rem-hours");
-	let rem_minutes_dom = document.querySelector(".rem-minutes");
-	let rem_seconds_dom = document.querySelector(".rem-seconds");
+	let rem_months_dom = q(".rem-months");
+	let rem_weeks_dom = q(".rem-weeks");
+	let rem_days_dom = q(".rem-days");
+	let rem_hours_dom = q(".rem-hours");
+	let rem_minutes_dom = q(".rem-minutes");
+	let rem_seconds_dom = q(".rem-seconds");
 	
-	let rem_months_label 	= document.querySelector(".rem-months-label");
-	let rem_weeks_label = document.querySelector(".rem-weeks-label");
-	let rem_days_label = document.querySelector(".rem-days-label");
-	let rem_hours_label = document.querySelector(".rem-hours-label");
-	let rem_minutes_label = document.querySelector(".rem-minutes-label");
-	let rem_seconds_label = document.querySelector(".rem-seconds-label");
+	let rem_months_label 	= q(".rem-months-label");
+	let rem_weeks_label = q(".rem-weeks-label");
+	let rem_days_label = q(".rem-days-label");
+	let rem_hours_label = q(".rem-hours-label");
+	let rem_minutes_label = q(".rem-minutes-label");
+	let rem_seconds_label = q(".rem-seconds-label");
 	
 	// Setting up conditions for displaying remaining time.
-	if (fmonth > 0 && fweeks !== 0 && fdays !== 0) {
+	if ( fmonth > 0 && fweeks !== 0 && fdays !== 0 ) {
 		rem_months_label.innerHTML = fmonth > 1 ? pmonths : smonths;
 		rem_weeks_label.innerHTML = fweeks > 1 ? pweeks : sweeks;
 		rem_days_label.innerHTML = fdays > 1 ? pdays : sdays;
 	} 
 	
-	else if (fmonth > 0 && fweeks !== 0 && fdays === 0) {
+	else if ( fmonth > 0 && fweeks !== 0 && fdays === 0 ) {
 		rem_months_label.innerHTML = fmonth > 1 ? pmonths : smonths;
 		rem_weeks_label.innerHTML = fweeks > 1 ? pweeks : sweeks;
 		rem_days_dom.style.display = "none";
 		rem_days_label.style.display = "none";
 	}
 	
-	else if (fmonth > 0 && fweeks === 0 && fdays !== 0) {
+	else if ( fmonth > 0 && fweeks === 0 && fdays !== 0 ) {
 		rem_months_label.innerHTML = fmonth > 1 ? pmonths : smonths;
 		rem_days_label.innerHTML = fdays > 1 ? pdays : sdays;
 		rem_weeks_dom.style.display = "none";
@@ -246,37 +254,38 @@ function clock() {
 	rem_weeks_dom.innerHTML = fweeks;
 	rem_days_dom.innerHTML = fdays;
 	rem_hours_dom.innerHTML = fhours;
-	rem_minutes_dom = fminutes;
-	rem_seconds_dom = fseconds;
+	rem_minutes_dom.innerHTML = fminutes;
+	rem_seconds_dom.innerHTML = fseconds;
 	
 	// Setting up a progress bar for the loading year.
-	let next_year = document.querySelector(".year-progress");
+	let next_year = q(".year-progress");
 	next_year.innerHTML = "<div class='progress-bar'></div>";
 	
-	let disp_year = document.querySelector(".from-to-year");
+	let disp_year = q(".from-to-year");
 	disp_year.innerHTML = "<span class='dying-year'>" + current_year + "</span>&nbsp;&nbsp;>&nbsp;&nbsp;" + "<span class='pending-year'>" + parseInt(current_year + 1) + "</span>";
 	
-	let progress_count = document.querySelector(".progress-count");
-	let fprogress = Math.round((Math.floor(prog/day_secs) / year_days)*100 , 0);
-	progress_count.innerHTML = fprogress + "%";
+	let progress_count = q(".progress-count");
+	let fprogress = (100*((prog/day_secs) / year_days)).toFixed(1);
+	let fprog_string = fprogress.toString();
+	progress_count.innerHTML = (fprog_string.charAt(fprog_string.length-1) == "0" ) ? Math.floor(fprogress) + "% COMPLETE" : fprogress + "% COMPLETE";
 	
-	let fade_away = document.querySelector(".dying-year");
-	let fade_in = document.querySelector(".pending-year");
+	let fade_away = q(".dying-year");
+	let fade_in = q(".pending-year");
 	
-	fade_away.style.opacity = 1.1 - Math.round(fprogress/100, 1);
-	fade_in.style.opacity = 1.1 - Math.round((100-fprogress)/100, 1);
+	fade_away.style.opacity = 1.1 - (fprogress/100).toFixed(1);
+	fade_in.style.opacity = 1.1 - ((100-fprogress)/100).toFixed(1);
 	
-	fade_away.style.filter = "blur(" + Math.round((2*fprogress)/100, 1) + "px)";
-	fade_in.style.filter = "blur(" + Math.round((2*(100-fprogress))/100, 1) + "px)";
+	fade_away.style.filter = "blur(" + ((2*fprogress)/100).toFixed(1) + "px)";
+	fade_in.style.filter = "blur(" + ((2*(100-fprogress))/100).toFixed(1) + "px)";
 	
-	let progress_bar_width = document.querySelector(".progress-bar");
-	let fprog_width = (165 * (year_days - rem_days)) / 366;
+	let progress_bar_width = q(".progress-bar");
+	let fprog_width = (165 * (1 - rem_days/year_days));
 	fprog_width = ( Math.ceil(fprog_width) - fprog_width) < 0.5 ? Math.ceil(fprog_width) : Math.floor(fprog_width);
 	progress_bar_width.style.width = fprog_width + "px";
 	
 	let today = ("<span class='day'>" + (date.toString().split(' ')[0]).bold() + "</span>" + ' ' + (date.toString().split(' ').splice(1,2).join(' ') + ', ' + current_year)).toUpperCase();
-	document.querySelector(".time-disp").innerHTML = "Day <b>" + Math.floor(prog / day_secs) + "</b> of " + year_days;
-	document.querySelector(".date-disp").innerHTML = today;
+	q(".time-disp").innerHTML = "Day <b>" + Math.floor(prog / day_secs) + "</b> of " + year_days;
+	q(".date-disp").innerHTML = today;
 	setInterval(clock, 1000);
 }
 
