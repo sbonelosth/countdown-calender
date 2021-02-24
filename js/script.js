@@ -37,19 +37,9 @@ function clock() {
 
   // Strings for labels.
 
-  let pmonths = "months";
-  let smonths = "month";
-  let pdays = "days ";
-  let sdays = "day ";
-  let pweeks = "weeks";
-  let sweeks = "week";
-  let phours = "hours";
-  let shours = "hour";
-  let pminutes = "minutes";
-  let sminutes = "minute";
-  let pseconds = "seconds";
-  let sseconds = "second";
-
+  let labels = ["month", "day", "week", "hour", "minute", "second"];
+  let _s = "s";
+  
   // Assigning the DOM to variables.
 
   let rem_months_dom = q(".rem-months");
@@ -92,32 +82,32 @@ function clock() {
     rem_minutes_dom.style.display = "none";
     rem_hours_dom.style.display = "none";
 
-    rem_months_label.innerHTML = fmonths > 1 ? pmonths : smonths;
-    rem_weeks_label.innerHTML = fweeks > 1 ? pweeks : sweeks;
-    rem_days_label.innerHTML = fdays > 1 ? pdays : sdays;
+    rem_months_label.innerHTML = fmonths > 1 ? labels[0] + _s : lmonths[0];
+    rem_weeks_label.innerHTML = fweeks > 1 ? labels[1] + _s : labels[1];
+    rem_days_label.innerHTML = fdays > 1 ? labels[2] + _s : labels[2];
   }
 
   else if (fmonths < 1 && fweeks > 0) {
     rem_seconds_dom.style.display = "none";
     rem_minutes_dom.style.display = "none";
 
-    rem_weeks_label.innerHTML = fweeks > 1 ? pweeks : sweeks;
-    rem_days_label.innerHTML = fdays > 1 ? pdays : sdays;
-    rem_hours_label.innerHTML = fhours > 1 ? phours : shours;
+    rem_weeks_label.innerHTML = fweeks > 1 ? labels[1] + _s : labels[1];
+    rem_days_label.innerHTML = fdays > 1 ? labels[2] + _s : labels[2];
+    rem_hours_label.innerHTML = fhours > 1 ? labels[3] + _s : labels[3];
   }
 
   else if (fmonths < 1 && fweeks < 1) {
     rem_minutes_dom.style.display = "none";
 
-    rem_days_label.innerHTML = fdays > 1 ? pdays : sdays;
-    rem_hours_label.innerHTML = fhours > 1 ? phours : shours;
-    rem_minutes_label.innerHTML = fminutes > 1 ? pminutes : sminutes;
+    rem_days_label.innerHTML = fdays > 1 ? labels[2] + _s : labels[2];
+    rem_hours_label.innerHTML = fhours > 1 ? labels[3] + _s : labels[3];
+    rem_minutes_label.innerHTML = fminutes > 1 ? labels[4] + _s : labels[4];
   }
 
   else if (fmonths < 1 && fweeks < 1 && fdays < 1) {
-    rem_hours_label.innerHTML = fhours > 1 ? phours : shours;
-    rem_minutes_label.innerHTML = fminutes > 1 ? pminutes : sminutes;
-    rem_seconds_label.innerHTML = fseconds > 1 ? pseconds : sseconds;
+    rem_hours_label.innerHTML = fhours > 1 ? labels[3] + _s : labels[3];
+    rem_minutes_label.innerHTML = fminutes > 1 ? labels[4] + _s : labels[4];
+    rem_seconds_label.innerHTML = fseconds > 1 ? labels[5] + _s : labels[5];
   }
 
   // Inflating the DOM with remaining time.
@@ -147,7 +137,7 @@ function clock() {
   fade_in.style.opacity = 1.1 - ((100 - fprogress) / 100).toFixed(1);
 
   fade_away.style.color = (current_year === 2021) ? "#BDB220" : "#EBEBEB";
-  
+
   fade_away.style.filter = `blur(${((2 * fprogress) / 100).toFixed(1)}px)`;
   fade_in.style.filter = `blur(${((2 * (100 - fprogress)) / 100).toFixed(1)}px)`;
 
@@ -176,8 +166,8 @@ function clock() {
   }
 
   let day_span = "<span class='day'>";
-  let progress_day =  Math.floor(prog / day_secs);
-  let today = day_span + ((date.toString().split(' ')[0]).bold() + ", </span> " + (date.toString().split(' ').splice(1, 1).join(' ') + ` ${current_day}`)).toUpperCase();
+  let progress_day = Math.floor(prog / day_secs);
+  let today = day_span + ((date.toString().split(' ')[0]).bold() + `, </span>${current_day} ` + (date.toString().split(' ').splice(1, 1).join(' '))).toUpperCase();
   q(".time-disp").innerHTML = `Day <b>${progress_day}</b> of ${year_days}`;
   q(".date-disp").innerHTML = today;
   setInterval(clock, 1000);
