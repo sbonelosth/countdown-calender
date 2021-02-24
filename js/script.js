@@ -37,7 +37,7 @@ function clock() {
 
   // Strings for labels.
 
-  let labels = ["month", "day", "week", "hour", "minute", "second"];
+  let labels = ["month", "week", "day", "hour", "minute", "second"];
   let _s = "s";
   
   // Assigning the DOM to variables.
